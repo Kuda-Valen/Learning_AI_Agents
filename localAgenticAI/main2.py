@@ -81,6 +81,3 @@ def run_react_agent(user_prompt: str):
     else:
         print("[AGENT FINAL ANSWER]: No execution tool required for this task.")
 
-if __name__ == "__main__":
-    prompt = input("\nEnter your system command prompt (e.g. Check available disk space on /): ")
-    run_react_agent(prompt)
