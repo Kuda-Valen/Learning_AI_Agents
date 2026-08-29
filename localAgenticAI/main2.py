@@ -61,23 +61,3 @@ def agent_brain(user_prompt: str, model_name: str = "qwen2.5:0.5b") -> dict:
 def run_react_agent(user_prompt: str):
     print(f"\n[USER]: {user_prompt}")
     
-    # Step 1: Reason (Ask LLM what to do)
-    print("--- [THOUGHT]: Analyzing prompt & selecting tool... ---")
-    decision = agent_brain(user_prompt)
-    print(f"[LLM DECISION]: {decision}")
-    
-    tool_name = decision.get("tool")
-    args = decision.get("args", {})
-
-    # Step 2: Act (Execute tool if valid)
-    if tool_name in TOOL_REGISTRY:
-        print(f"--- [ACTION]: Executing {tool_name}(**{args}) ---")
-        observation = TOOL_REGISTRY[tool_name](**args)
-        print(f"[OBSERVATION]: {observation}")
-        
-        # Step 3: Synthesis
-        print(f"\n[AGENT FINAL ANSWER]: Disk check completed for path '{observation.get('path')}'. "
-              f"Free space: {observation.get('free_gb')} GB out of {observation.get('total_gb')} GB.")
-    else:
-        print("[AGENT FINAL ANSWER]: No execution tool required for this task.")
-
